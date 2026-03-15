@@ -4,6 +4,10 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO_ROOT"
 
+if [ -f ".gitmodules" ]; then
+  git submodule update --init --recursive
+fi
+
 PYTHON_BIN="${PYTHON_BIN:-python3}"
 if [ ! -d ".venv" ]; then
   "$PYTHON_BIN" -m venv .venv

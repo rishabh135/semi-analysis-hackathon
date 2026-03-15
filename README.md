@@ -33,7 +33,7 @@ The goal is quality improvement, not speed optimization.
 │   ├── dispatch_low_confidence.py
 │   └── prefetch_whisper_tiny.sh
 ├── tests/
-├── vendor/whisper/              # vendored upstream Whisper source
+├── vendor/whisper/              # upstream Whisper source as a git submodule
 └── README.md
 ```
 
@@ -47,6 +47,7 @@ Requirements:
 Bootstrap locally:
 
 ```bash
+git submodule update --init --recursive
 ./scripts/bootstrap_local.sh
 source .venv/bin/activate
 python scripts/doctor.py
@@ -55,6 +56,7 @@ python scripts/doctor.py
 That installs:
 
 - local Python dependencies from `requirements.txt`
+- the Whisper submodule via `git submodule update --init --recursive`
 - the vendored Whisper package via `pip install -e vendor/whisper`
 
 ## Visualize Token Confidence
@@ -140,5 +142,6 @@ Current tests cover:
 ## Notes
 
 - The local-first model is real Whisper source code from `vendor/whisper`.
+- `vendor/whisper` is tracked as a git submodule, so fresh clones should run `git submodule update --init --recursive`.
 - The dispatch path is selective: it targets only low-confidence spans, not the whole file.
 - If you want higher quality later, the next logical step is to add a transcript reconciliation policy for replacing local spans with the online model output more intelligently than simple span substitution.

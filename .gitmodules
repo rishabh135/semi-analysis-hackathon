@@ -1,0 +1,3 @@
+[submodule "vendor/whisper"]
+	path = vendor/whisper
+	url = https://github.com/openai/whisper.git
